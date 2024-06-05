@@ -10,6 +10,9 @@ import { revisar } from './app.js';
 import userModel from './DBuser.js';
 import bingoModel from './DBbingo.js';
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 console.log(__dirname);
 
@@ -137,7 +140,7 @@ app.post('/upload2', async(req, res) => {
   
 });
 
-app.listen(8000,()=>{console.log("Funcionando en puerto 8000")})
+app.listen(process.env.PORT,()=>{console.log("Funcionando en puerto "+process.env.PORT)})
 
 const x=[]
 x.push(1)
