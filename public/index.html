@@ -1,0 +1,604 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#301e9f" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  
+  <title>Document</title>
+  <style>
+  body{
+    background-color: #e7e7e7;
+    color:#525252;
+    font-family: 'Fredoka', sans-serif;
+  }
+  /* Estilos para el botón de carga personalizado */
+  .custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #14958e;
+    color:#FFF;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-file-upload:hover {
+    background-color: #e0e0e0;
+  }
+
+  .fixed-bottom{
+    background-color: #301e9f;
+    color:#FFF;
+    text-align: center;
+  }
+  .fixed-bottom .nav_div{
+    border:1px solid #87a4df;
+    border-width: 0px 1px 0px 0px;
+  }
+
+  table td,th{
+    padding: 3px;
+    font-size: .8em;
+  }
+
+  thead{
+    background-color: #301e9f;
+    color:#FFF;
+  }
+
+  /* Ocultar el input file */
+  input[type="file"] {
+    display: none;
+  }
+  #image-container {
+            width: 100%;
+            height: 80vh;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+        #image {
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+  .table-div
+  .choosen{
+    border-radius: 10px;
+    padding:5px 30px;
+    margin-top: 5px;
+    margin-left: 5px;
+    border: 0px;
+  }
+  </style>
+</head>
+<body>
+  <div class="container-fluid"  style="padding: 0px;;margin: 0px;padding: 0px;">
+    <div class="capa capa_0 row" style="padding: 0px;background: #301e9f;height: 100vh;margin: 0px;padding: 30px;text-align: center;">
+      
+    <div class="offset-4 col-4" style="padding-top: 100px; color:#FFF"><img src="https://blog.roberthallam.org/wp-content/uploads/2022/09/loading-win98-transparent.gif" style="width: 100%;filter: invert(1);"><br>Loading..</div>
+    </div>
+    <div class="capa capa_1 row" style="padding: 0px;;margin: 0px;padding: 0px;text-align: center;">
+
+    <div class="row" style="padding: 10px;background-color: #301e9f;color:#FFF;margin: 0px;">
+      <input type="text" class="form-control" onclick="capa(2);$('#txt_buscar').focus().val('')"placeholder="Song name.." style="width: 100%;background-color:rgba(255,255,255,.12);border:0px;border-radius: 100px;color:#FFCC00;">
+    </div>
+    <div class="container">
+        <input type="file" class="form-control mt-3 mb-3" id="inputImage">
+        
+      <div class="col-12" style="margin-top: 20px;">
+        <button class="btn" id="" data="1" style="background-color: #301e9f;color:#FFF;margin-bottom: 10px;" onclick="$('#inputImage').click()"><i class="zmdi zmdi-plus" ></i> NEW INVOICE</button>
+        <button class="btn" data="1" style="background-color: #301e9f;color:#FFF;margin-bottom: 10px;" onclick="uploadCroppedImage2()"><i class="zmdi zmdi-plus" ></i> Simular</button>
+        
+        <div id="result" class="mt-3">
+          <img id="croppedImage" src="" alt="Cropped Image" class="img-fluid" style="max-width: 100%;display: none;">
+      </div>
+      </div>      
+      <div class="col-12 " id="upload_choosen" style="padding: 0px 0px 10px 0px;display: none;">
+        <input type="checkbox" id="headers_check" onchange="print_table($(this).prop('checked'))">Headers
+        <div class="table-responsive"  id="bingos" style="max-height: 40vh;"></div>
+        <div class="options col-12" style="text-align: left;">
+          <h3 style="margin-top: 20px; text-align: center;">Choose columns</h3>
+        <div class="row" style="text-align: center;">
+          <div class="col p-0">Qty<br><select class="choosen" id="qty"></select></div>
+          <div class="col p-0">Code<br><select class="choosen" id="code"></select></div>
+          <div class="col p-0">Product<br><select class="choosen" id="product"></select></div>
+          <div class="col p-0">Price<br><select class="choosen" id="price"></select></div>
+          <div class="col p-0">Total<br><select class="choosen" id="pricet"></select></div>
+        </div>
+        <div class="col-12" style="padding: 30px ;text-align: center;">
+          <button class="btn" data="1" style="background-color: #301e9f;color:#FFF;margin-bottom: 10px;" onclick="createForm()">Create Form</button>
+        </div>
+        <div class="col-12" id="div_form"></div>
+        </div>
+      </div>
+      <div class="col-12" style="padding:0px;color:#7c7c7c;font-size: .6em;margin-bottom: 70px;">User Id: <b class="user_id"></b> </div>  
+  
+    </div>
+    </div>
+    <div class="capa capa_10 row" style="margin: 0px;padding: 0px;text-align: center;">
+      <div class="col-12">
+        <div id="image-container">
+            <img id="image" src="" style="display: none;" alt="Image for cropping and rotating">
+        </div>
+      </div>
+      <div class="mt-3 text-center">
+        <button onclick="capa(1)" class="btn btn-danger ">Delete</button> <button id="crop" class="btn btn-success">Continue</button>
+      </div>
+    </div>
+    <div class="capa capa_2 row" style="margin: 0px;padding: 0px;text-align: center;">
+        
+        <div class="row" style="padding: 10px;background-color: #000;margin: 0px;">
+          <input type="text" onfocus="$(this).val('');$(this).keyup()" autocomplete="off" class="form-control" id="txt_buscar" placeholder="Song name.." style="width: 100%;background-color:rgba(255,255,255,.12);border:0px;border-radius: 100px;color:#FFCC00;">
+        </div>
+        <div class="co-12 songs" style="padding:30px 20px 100px 20px">
+
+        </div>
+    </div>
+    <div class="capa capa_3 row" style="padding: 40px 30px;background: #000;min-height: 100%;">
+      <div class="col-12">
+      <center><img src="img/loading.gif" style="width: 90px;" id="img_show_loading"></center>
+      <img src="" alt="" id="img_show" onload="$(this).show();$('#img_show_loading').hide()" style="width: 100%;border:1px solid #FFF">
+      <button class="btn" onclick="capa(1)" style="border-radius:100px;background:rgb(100,100,100);color:rgba(200,200,200);margin-top:30px">
+        <i class="zmdi zmdi-arrow-left"></i>
+        Go back
+      </button>
+    </div>
+    </div>
+  </div>
+
+  <nav class="navbar fixed-bottom " style="padding: 0px;box-shadow: -2px 5px 30px -5px rgba(66, 66, 66, 0.75);display: none;">
+    <div class="col-6 nav_div nav_div_1" onclick="capa(1)" style="padding: 20px 10px;"><i class="zmdi zmdi-format-list-bulleted"></i> PRODUCTS</div>
+    <div class="col-6 nav_div nav_div_2" onclick="capa(2)" style="padding: 20px 10px"><i class="zmdi zmdi-collection-music"></i> SUPPLIERS</div>
+  </nav>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+
+    function capa(i){
+      $(".capa").hide();
+      $(".capa_"+i).show();
+      $('.nav_div').css('color','#FFF');
+      $(".nav_div_"+i).css('color','#FFCC00');
+    }
+    
+    capa(0)
+    
+    let cropper;
+    const image = document.getElementById('image');
+    const inputImage = document.getElementById('inputImage');
+    const croppedImage = document.getElementById('croppedImage');
+
+    inputImage.addEventListener('change', function(event) {
+        capa(10)
+        $("#image").show()
+        const files = event.target.files;
+        if (files && files.length > 0) {
+            const file = files[0];
+            const url = URL.createObjectURL(file);
+            image.src = url;
+            if (cropper) {
+                cropper.destroy();
+            }
+            cropper = new Cropper(image, {
+                viewMode: 1,
+                dragMode: 'move',
+                autoCropArea: 1,
+                responsive: true,
+                restore: true,
+                movable: true,
+                rotatable: true,
+                scalable: true,
+                zoomable: true,
+                zoomOnTouch: true,
+                zoomOnWheel: true,
+                cropBoxResizable: true,
+            });
+        }
+    });
+
+    document.getElementById('crop').addEventListener('click', function() {
+        const canvas = cropper.getCroppedCanvas();
+        croppedImage.src = canvas.toDataURL();
+        canvas.toBlob(function(blob) {
+            uploadCroppedImage(blob);
+        });
+    });
+
+
+    tableData=[]
+    function uploadCroppedImage(blob){
+        capa(0)
+        const formData = new FormData();
+        formData.append('archivo', blob);
+        $.ajax({
+        url: '/upload', // URL del servidor donde se enviarán los datos
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            console.log(response)
+            const rta=response.contenido;
+            tableData=rta;
+            capa(1)
+            $("#headers_check").prop('checked',true)
+            print_table(true);
+            $("#croppedImage").show();
+            $("#upload_choosen").show()
+            //initsearch()
+            
+        },
+        error: function(error) {
+            // Manejar errores si ocurren
+        }
+        });
+    } 
+    
+    function uploadCroppedImage2(){
+        capa(0)
+        $.ajax({
+        url: '/upload2', // URL del servidor donde se enviarán los datos
+        type: 'POST',
+        success: function(response) {
+            console.log(response)
+            const rta=response.contenido;
+            tableData=rta;
+            console.log(tableData)
+            capa(1)
+            $("#headers_check").prop('checked',true)
+            print_table(true);
+            $("#croppedImage").hide();
+            $("#upload_choosen").show()
+            //initsearch()
+            
+        },
+        error: function(error) {
+            // Manejar errores si ocurren
+        }
+        });
+    } 
+    
+    const print_table=(cabecera)=>{
+      console.log("cabecera",cabecera)
+      $("#bingos").html("");
+      html="";cabecera?limit=0:limit=1000
+      tableData.forEach(t => {
+      html+=`<table class="ui celled table">`;
+      qty=t[0].length;
+      op=""
+      cab="<thead style='background:#FFCC0044;color:#FFF'><tr>"
+      for (let i = 0; i < qty; i++) {
+        cab+=`<th>${i+1}</th>` 
+        op+=`<option value="${i}">${i+1}</option>`
+      }
+      cab+=`</tr></thead>`;
+      $(".choosen").html("")
+      $(".choosen").append(op)
+      html+=cab;
+      console.log(t)
+      t.forEach((c,i) => {
+         console.log(c)
+          columna=""
+          i==limit?columna+=`<thead><tr>`:html+=`<tr>`;
+          c?.forEach(r => {
+          i==limit?columna+=`<th>${r}</th>`:columna+=`<td>${r}</td>`;
+          });
+          i==limit?columna+=`</tr></thead>`:html+=`</tr>`;
+          html+=columna;
+      });
+      html+=`</table><hr>`;
+      });
+      $("#bingos").html(html);
+    }
+
+    function createForm(){
+      const cabecera=$("#headers_check").prop('checked');
+      $("#div_form").html("");
+      html="";cabecera?limit=0:limit=1000
+      tableData.forEach(t => {
+      html+=`<div class="row">`;
+      t.forEach((c,i) => {
+          console.log("AAA",c)
+          if(i!=limit && c){
+            html+=`
+            <div class="col-12">Product<br><input type="text" value="${c[$("#product").val()]}" style="max-width:100%;min-width:100%"></div>
+            <div class="col-3">Qty<br><input type="text" value="${c[($("#qty").val())]}"  style="max-width:100%"></div>
+            <div class="col-3">Code<br><input type="text" value="${c[$("#code").val()]}"  style="max-width:100%"></div>
+            <div class="col-3">Price<br><input type="text" value="${c[$("#price").val()]}"  style="max-width:100%"></div>
+            <div class="col-3">Total<br><input type="text" value="${c[$("#pricet").val()]}"  style="max-width:100%"></div>
+            <hr>
+            `
+          }
+      });
+      html+=`</div>`;
+      });
+      $("#div_form").html(html);
+
+    }
+
+
+    //Setting filtros
+    btn_filter=localStorage.getItem('btn_filter');
+    if(!btn_filter){btn_filter=3;}
+    $('.btn_filter').css('background','#4e4e4e');$('#btn_filter_'+btn_filter).css('background','#FFCC00');
+    $('.btn_filter').on("click",function(){ 
+      $('.btn_filter').css('background','#4e4e4e');
+      $(this).css('background','#FFCC00');
+      btn_filter=$(this).attr("data")
+      initsearch();
+    })
+    //Setting user
+    user_id=localStorage.getItem('user_id');
+    if(!user_id){user_id=generarCodigo(30);localStorage.setItem('user_id',user_id);}
+    $(".user_id").html(user_id)
+
+    initsearch()
+    
+    $(document).ready(function() {
+    $('#archivo').change(function() {
+      $("#archivo_name").val("Bingo "+(bingos_qty+1));
+      $("#archivo_name").focus()
+      //$('#uploadForm').submit(); // Enviar el formulario cuando se selecciona un archivo
+    });
+
+    $('#uploadForm').submit(function(e) {
+      $("#uploadForm").hide()
+      e.preventDefault(); // Evitar la recarga de la página al enviar el formulario
+      var formData = new FormData($(this)[0]); // Obtener los datos del formulario
+      var archivo_name = $('#archivo_name').val();
+      formData.append('archivo_name', archivo_name);
+      formData.append('user_id', user_id);
+      formData.append('img_token', 'beIqZb26X1xlEOVqLOto8.jpg');
+      $("#bingos").html("");
+      capa(0)
+      $.ajax({
+        url: '/upload', // URL del servidor donde se enviarán los datos
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+          console.log(response)
+          const rta=response.contenido;
+          html=""
+          rta.forEach(t => {
+            html+=`<table class="ui celled table">`;
+            t.forEach((c,i) => {
+              i==0?html+=`<thead><tr>`:html+=`<tr>`;
+              c.forEach(r => {
+                i==0?html+=`<th>${r}</th>`:html+=`<td>${r}</td>`;
+              });
+              i==0?html+=`<tr></thead>`:html+=`<tr>`;
+            });
+            html+=`</table><hr>`;
+          });
+          $("#bingos").html(html);
+          capa(1)
+          //initsearch()
+          
+        },
+        error: function(error) {
+          // Manejar errores si ocurren
+        }
+      });
+    });
+  });
+
+  
+
+  function initsearch(){
+    localStorage.setItem('btn_filter',btn_filter);
+    $("#bingos").html("");
+    $(".songs").html("")
+    bingos_qty=0;
+    capa(0)
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify({
+      user_id
+    });
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };  
+    fetch("/user/img", requestOptions)
+    .then(response => response.json())
+    .then(result =>{
+      songs_data=[]
+        newA=result.map(a=>{
+          arrayA=a.bingo.map(b=>b.chequeado)
+          l1=arrayA.slice(0,5).filter(c=>{if(c){return true;}}).length;
+          l2=arrayA.slice(5,10).filter(c=>{if(c){return true;}}).length;
+          l3=arrayA.slice(10,15).filter(c=>{if(c){return true;}}).length;
+          l4=arrayA.slice(15,20).filter(c=>{if(c){return true;}}).length;
+          l5=arrayA.slice(20,25).filter(c=>{if(c){return true;}}).length;
+          const linCount=[l1,l2,l3,l4,l5].filter(c=>c==5).length;
+          const maxCount=Math.max(...[l1,l2,l3,l4,l5].filter(c=>c<5))
+          console.log("horizontal",[l1,l2,l3,l4,l5])
+          return {linCount,maxCount}  
+        })
+        console.log(1)
+        newB=result.map(a=>{
+          l1=a.bingo.filter(a=>a.columna==0).map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
+          l2=a.bingo.filter(a=>a.columna==1).map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
+          l3=a.bingo.filter(a=>a.columna==2).map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
+          l4=a.bingo.filter(a=>a.columna==3).map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
+          l5=a.bingo.filter(a=>a.columna==4).map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
+          const linCount=[l1,l2,l3,l4,l5].filter(c=>c==5).length;
+          const maxCount=Math.max(...[l1,l2,l3,l4,l5].filter(c=>c<5))
+          console.log("vertical",[l1,l2,l3,l4,l5])
+          return {linCount,maxCount}  
+        })
+        newC=result.map(a=>{
+          return a.bingo.map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
+        })
+        result=result.map((a,i)=>{a.lineas=newA[i].linCount;a.lineasC=newA[i].maxCount;a.verticales=newB[i].linCount;a.verticalesC=newB[i].maxCount; a.chequeados=newC[i];return a;})
+        console.log(result.map(a=> {return {l:a.lineas,lc:a.lineasC,v:a.verticales,vc:a.verticalesC};}))
+        if(btn_filter==1){result.sort((a,b)=>{
+          if(b.lineas-a.lineas<0){return -1}
+          if(b.lineasC-a.lineasC<0){return -1}
+        });}
+        if(btn_filter==2){result.sort((a,b)=>{
+          if(b.verticales-a.verticales<0){return -1}
+          if(b.verticalesC-a.verticalesC<0){return -1}
+        });}
+        if(btn_filter==3){result.sort((a,b)=>b.chequeados-a.chequeados);}
+        result.forEach((e,t) => {
+          bingos_qty++;
+          console.log(e.url)
+          html=``
+          html+=`<div class="col-12" style="padding:20px">
+            <p style="margin:0px;font-size:1.2em">${e.name || "-"}
+            </p>
+            <p style='color:#9e9e9e;font-size:.8em;margin:0px'>
+              <a style="display:${btn_filter==1?"block":"none"}"><i class="zmdi zmdi-long-arrow-right"></i> ${e.lineas.linCount} lines | To new line: ${5-e.lineas.maxCount}  songs</a>
+              <a style="display:${btn_filter==2?"block":"none"}"><i class="zmdi zmdi-long-arrow-up"></i> ${e.verticales.linCount} lines | To new line: ${5-e.verticales.maxCount}  songs</a>
+              <a style="display:${btn_filter==3?"block":"none"}"><i class="zmdi zmdi-collection-music"></i> ${e.chequeados} | To end: ${25-e.chequeados} songs</a></p>         
+              <button class="btn btn-xs btn_img" data_img="${e.url}" style="padding:1px 10px;margin-top:-41px;font-size:1.1em;border-radius:100px;background:rgb(100,100,100);color:rgba(200,200,200);float:left">
+                <i class="zmdi zmdi-eye"></i>
+              </button>
+              <button class="btn btn-xs btn_delete" data_btn="${e.id}" style="padding:1px 10px;margin-top:-41px;font-size:1.1em;border-radius:100px;background:rgb(100,100,100);color:rgba(200,200,200);float:right">
+                <i class="zmdi zmdi-delete"></i>
+              </button>
+            <div class="row" style="color:#FFF;border-radius:10px;margin-top:20px">`
+          li=0;liact=0;lineas=0;
+          e.bingo.forEach(s => {
+              songs_data.push(s)
+              html+=`<div class="col" style="background:${s.chequeado?"rgb(120, 255, 188,.1)":"rgb(242, 212, 73,.5)"};width:20%;min-width:20%;margin:0px;font-size:.7em;border:.1px solid #000;text-align:center;padding:0px;display: flex;align-items: center;justify-content: center;">${s.song}</div>`; 
+              li++;
+              if(s.chequeado){liact++;}
+              if(li==5){if(liact==5){lineas++;};li=0;liact=0;}
+          });
+          html+=`</div></div>`;
+          $("#bingos").append(html)
+          $("#lineas_"+t).html(lineas)
+        });
+        
+        songs_data=songs_data.map(a=>{a.realsong=a.song;a.song=a.song.replaceAll("-","").replaceAll(".","").replaceAll(" ","").trim();return a;})
+        songs_data.sort((a, b) => a.song.localeCompare(b.song));
+        songs_data.forEach(e => {
+          iguales=songs_data.filter(a=>compararCadenas(a.song,e.song)>.9)
+          songs_data=songs_data.map(a=>{if(iguales.findIndex(b=>b._id==a._id)>-1){a.song=e.song};return a});
+        });
+        const songs = Object.values(
+          songs_data.reduce((acc, { song, ...rest }) => {
+            acc[song] = acc[song] || { song, cantidad: 0, ...rest,ids:[],title:[]};
+            acc[song].cantidad++;
+            acc[song].ids.push(rest._id)
+            acc[song].title.push(rest.realsong)
+            return acc;
+          }, {})
+        );
+        songs.sort((a, b) => a.song.localeCompare(b.song)).forEach((s,i) => {
+          html_btn=`<button class="btn" id="btn_${i}" style="float:right;background:rgb(0,0,0,.3);color:rgb(255,255,255,.7);border:0px"><i class="zmdi zmdi-${s.chequeado?"delete":"check"}"></i></button>`
+          $(".songs").append(`<div class="col-12 songs_list" style="padding:10px;background:${s.chequeado?"rgb(120, 255, 188,.1)":"rgb(242, 212, 73,.5)"};margin-bottom:10px;box-shadow: -2px 5px 30px -10px rgba(0,0,0,.16);border-radius:10px;text-align:left">${html_btn}${s.realsong} (${s.cantidad})</div>`)  
+          $("#btn_"+i).on("click",()=>{
+            act(s.ids,!s.chequeado)
+          })
+        
+        });
+        capa(1);   
+        $(".btn_delete").on("click",function (e) {  
+          capa(0)
+          var settings = {
+          "url": "/delete",
+          "method": "POST",
+          "timeout": 0,
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "data": JSON.stringify({
+            "id": $(this).attr('data_btn'),
+            "status": false
+          }),
+          };
+
+          $.ajax(settings).done(function (response) {
+            initsearch()
+          });     
+        })     
+        $(".btn_img").on("click",function (e) {  
+          $("#img_show").hide();
+          $("#img_show_loading").show()
+          $("#img_show").attr("src",$(this).attr('data_img'));
+          capa(3)
+        })      
+    })
+    .catch(error => console.log('error', error));
+    }
+
+    function compararCadenas(str1, str2) {
+      const set1 = new Set(str1.split(''));
+      coin=0;total=0;
+      set1.forEach(e => {
+        c1=str1.split('').filter(a=>a==e).length;
+        c2=str2.split('').filter(a=>a==e).length;
+        max=Math.max(c1,c2);
+        dif=Math.abs(c1-c2);
+        total+=max;
+        coin+=(max-dif);
+        
+      });
+      rta=coin/total;
+      //console.log()
+      return rta;
+    }
+
+    function act(ids,valor){
+      var settings = {
+      "url": "/cambios",
+      "method": "POST",
+      "timeout": 0,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "data": JSON.stringify({ids,valor}),
+    };
+
+    $.ajax(settings).done(function (response) {
+      console.log(response);
+      initsearch()
+    });
+    }
+
+    let dejodeescribir;
+    $("#txt_buscar").on("keyup",function () {
+        txt=$(this).val();
+        clearInterval(dejodeescribir)
+        dejodeescribir=setInterval(()=>{
+          $(".songs_list").show()
+          $(".songs_list").each(function(s){
+            if($(this).html().toLowerCase().indexOf(txt.toLowerCase())<0){
+              $(this).hide()
+            }
+          });
+          clearInterval(dejodeescribir)
+        },300)
+     })
+
+
+     function generarCodigo(longitud) {
+      const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let codigo = "";
+
+      for (let i = 0; i < longitud; i++) {
+        const caracterAleatorio = caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+        codigo += caracterAleatorio;
+      }
+
+      return codigo;
+    }
+    </script>
+</body>
+</html>
