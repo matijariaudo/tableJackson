@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="theme-color" content="#301e9f" />
+  <meta name="theme-color" content="#000" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -48,11 +48,23 @@
   table td,th{
     padding: 3px;
     font-size: .8em;
+    margin:0px
   }
 
   thead{
-    background-color: #301e9f;
-    color:#FFF;
+    background-color: #686868;
+    color:#000000;
+  }
+  td{
+   
+    color:#FFF ;
+  }  
+  th,td{border: 1px solid #FFF;
+    border-width: 0px 0px 0px 1px;
+    white-space: nowrap;
+  }
+  tr{
+    border: 0px solid #000;
   }
 
   /* Ocultar el input file */
@@ -61,7 +73,7 @@
   }
   #image-container {
             width: 100%;
-            height: 80vh;
+            height: 60vh;
             overflow: hidden;
             border-radius: 20px;
         }
@@ -77,56 +89,77 @@
     margin-top: 5px;
     margin-left: 5px;
     border: 0px;
+    
+  }
+  .capa{
+    padding: 0px;background: #f2f2f2;height: 100vh;margin: 0px;padding: 10px;
+    overflow-y: auto;
   }
   </style>
 </head>
 <body>
+  <div class="navbar fixed-top row capa_no capa_10_no capa_100_no capa_101_no capa_0_no" style="padding: 10px 0px;background-color: #000000;color:#FFF;margin: 0px;text-align: center;">
+    <div class="col-12 p-2">
+      <img src="img/logo.webp" alt="" style="width: 30vw;">
+    </div>
+    <div class="col-10 p-2">
+      <input type="text" class="form-control" onclick="capa(2);$('#txt_buscar').focus().val('')"placeholder="Product, code or supplier.." style="width: 100%;background-color:rgba(255,255,255,.12);border:0px;border-radius: 100px;color:#FFCC00;">
+    </div>
+    <div class="col-2 p-2">
+      <button class="btn" style="background-color: #7c7c7c;border-radius: 100px;padding: 5px 12px;" onclick="$('#inputImage').click()">+</button>
+    </div>
+  </div>
   <div class="container-fluid"  style="padding: 0px;;margin: 0px;padding: 0px;">
-    <div class="capa capa_0 row" style="padding: 0px;background: #301e9f;height: 100vh;margin: 0px;padding: 30px;text-align: center;">
-      
-    <div class="offset-4 col-4" style="padding-top: 100px; color:#FFF"><img src="https://blog.roberthallam.org/wp-content/uploads/2022/09/loading-win98-transparent.gif" style="width: 100%;filter: invert(1);"><br>Loading..</div>
+    <div class="capa capa_0 row" style="background: #000;text-align: center;">
+    <div class="offset-4 col-4" style="margin-top: 30vh; color:#FFF"><img src="https://blog.roberthallam.org/wp-content/uploads/2022/09/loading-win98-transparent.gif" style="width: 100%;filter: invert(1);"><br>Loading..</div>
     </div>
-    <div class="capa capa_1 row" style="padding: 0px;;margin: 0px;padding: 0px;text-align: center;">
-
-    <div class="row" style="padding: 10px;background-color: #301e9f;color:#FFF;margin: 0px;">
-      <input type="text" class="form-control" onclick="capa(2);$('#txt_buscar').focus().val('')"placeholder="Song name.." style="width: 100%;background-color:rgba(255,255,255,.12);border:0px;border-radius: 100px;color:#FFCC00;">
-    </div>
-    <div class="container">
-        <input type="file" class="form-control mt-3 mb-3" id="inputImage">
-        
-      <div class="col-12" style="margin-top: 20px;">
-        <button class="btn" id="" data="1" style="background-color: #301e9f;color:#FFF;margin-bottom: 10px;" onclick="$('#inputImage').click()"><i class="zmdi zmdi-plus" ></i> NEW INVOICE</button>
+    <div class="capa capa_1 row" style="padding-top: 120px;">
+      <div class="col-12" id="products">
         <button class="btn" data="1" style="background-color: #301e9f;color:#FFF;margin-bottom: 10px;" onclick="uploadCroppedImage2()"><i class="zmdi zmdi-plus" ></i> Simular</button>
-        
-        <div id="result" class="mt-3">
-          <img id="croppedImage" src="" alt="Cropped Image" class="img-fluid" style="max-width: 100%;display: none;">
+            
+        saddas
       </div>
-      </div>      
-      <div class="col-12 " id="upload_choosen" style="padding: 0px 0px 10px 0px;display: none;">
-        <input type="checkbox" id="headers_check" onchange="print_table($(this).prop('checked'))">Headers
-        <div class="table-responsive"  id="bingos" style="max-height: 40vh;"></div>
-        <div class="options col-12" style="text-align: left;">
-          <h3 style="margin-top: 20px; text-align: center;">Choose columns</h3>
-        <div class="row" style="text-align: center;">
-          <div class="col p-0">Qty<br><select class="choosen" id="qty"></select></div>
-          <div class="col p-0">Code<br><select class="choosen" id="code"></select></div>
-          <div class="col p-0">Product<br><select class="choosen" id="product"></select></div>
-          <div class="col p-0">Price<br><select class="choosen" id="price"></select></div>
-          <div class="col p-0">Total<br><select class="choosen" id="pricet"></select></div>
+    </div>
+    <div class="capa capa_100 row" style="padding-top: 30px;background-color: #000;color:#FFF">
+      <div class="container">
+          <input type="file" class="form-control mt-3 mb-3" id="inputImage">
+        <div class="col-12" style="margin-top: 20px;">
+          <div id="result" class="mt-3">
+            <img id="croppedImage" src="" alt="Cropped Image" class="img-fluid" style="max-width: 100%;display: none;border: 2px solid #FFF;">
         </div>
-        <div class="col-12" style="padding: 30px ;text-align: center;">
-          <button class="btn" data="1" style="background-color: #301e9f;color:#FFF;margin-bottom: 10px;" onclick="createForm()">Create Form</button>
-        </div>
-        <div class="col-12" id="div_form"></div>
+        </div>      
+        <div class="col-12 " id="upload_choosen" style="padding: 0px 0px 10px 0px;display: none;">
+          <h3 style="margin-top: 20px; text-align: center;">Match columns & data</h3>
+          <input type="checkbox" id="headers_check" onchange="print_table()">Headers
+          <div class="table-responsive"  id="table_read" style="max-height: 60vh;border:2px solid #FFF;padding:0px;border-radius: 10px;"></div>
+          <div class="options col-12" style="text-align: left;">
+          <div class="col-12" style="padding: 30px ;text-align: center;">
+            <button class="btn btn-danger" data="1" style="margin-bottom: 10px;" onclick="capa(1)">Cancel</button>
+            <button class="btn btn-success" data="1" style="margin-bottom: 10px;" onclick="createForm()">Next Step</button>
+          </div>
+          </div>
+          <div class="col-12" style="padding:0px;font-size: .6em;margin-bottom: 70px;">User Id: <b class="user_id"></b> </div>  
         </div>
       </div>
-      <div class="col-12" style="padding:0px;color:#7c7c7c;font-size: .6em;margin-bottom: 70px;">User Id: <b class="user_id"></b> </div>  
-  
     </div>
-    </div>
-    <div class="capa capa_10 row" style="margin: 0px;padding: 0px;text-align: center;">
+    <div class="capa capa_101 row" style="padding-top: 30px;background-color: #000;color:#FFF">
       <div class="col-12">
-        <div id="image-container">
+      <h3 style="margin: 20px 0px; text-align: center;">Upload Products</h3>
+      <div class="col-12" style="border:1px solid #FFF;border-width: 2px 0px 2px 0px;padding-top: 30px;">
+        Supplier: <input type="text"  id="form_suplier" style="background: none;border:1px solid #FFF;border-radius: 4px;color:#FFF"><br><br>
+        Date: <input type="datetime-local" id="form_date" style="background: none;border:1px solid #FFF;border-radius: 4px;margin-bottom: 30px;color: #FFF;">
+      </div>
+      <div class="col-12" id="div_form"></div>
+      <div class="col-12" style="padding: 30px ;text-align: center;">
+        <button class="btn btn-danger" data="1" style="margin-bottom: 10px;" onclick="capa(100)">Go Back</button>
+        <button class="btn btn-success" data="1" style="margin-bottom: 10px;" id="enviar_form">Send Form</button>
+      </div>
+      
+      </div>
+    </div>
+    <div class="capa capa_10 row" style="margin: 0px;padding: 50px 0px 0px 0px;background-color: #000;text-align: center;">
+      <div class="col-12">
+        <div id="image-container" style="border: 2px solid #FFF;">
             <img id="image" src="" style="display: none;" alt="Image for cropping and rotating">
         </div>
       </div>
@@ -166,8 +199,11 @@
     function capa(i){
       $(".capa").hide();
       $(".capa_"+i).show();
+      $(".capa_no").show();
+      $(".capa_"+i+"_no").hide();
       $('.nav_div').css('color','#FFF');
       $(".nav_div_"+i).css('color','#FFCC00');
+      console.log("capa",i)
     }
     
     capa(0)
@@ -229,9 +265,9 @@
             console.log(response)
             const rta=response.contenido;
             tableData=rta;
-            capa(1)
-            $("#headers_check").prop('checked',true)
-            print_table(true);
+            capa(100)
+            $("#headers_check").prop('checked',false)
+            print_table();
             $("#croppedImage").show();
             $("#upload_choosen").show()
             //initsearch()
@@ -253,9 +289,9 @@
             const rta=response.contenido;
             tableData=rta;
             console.log(tableData)
-            capa(1)
-            $("#headers_check").prop('checked',true)
-            print_table(true);
+            capa(100)
+            $("#headers_check").prop('checked',false)
+            print_table();
             $("#croppedImage").hide();
             $("#upload_choosen").show()
             //initsearch()
@@ -267,22 +303,18 @@
         });
     } 
     
-    const print_table=(cabecera)=>{
-      console.log("cabecera",cabecera)
-      $("#bingos").html("");
+    const print_table=()=>{
+      cabecera=$("#headers_check").prop('checked');
+      $("#table_read").html("");
       html="";cabecera?limit=0:limit=1000
       tableData.forEach(t => {
-      html+=`<table class="ui celled table">`;
+      html+=`<table class="ui celled table" style="margin:0px">`;
       qty=t[0].length;
-      op=""
-      cab="<thead style='background:#FFCC0044;color:#FFF'><tr>"
+      cab="<thead style='background:#FFF;color:#000'><tr>"
       for (let i = 0; i < qty; i++) {
-        cab+=`<th>${i+1}</th>` 
-        op+=`<option value="${i}">${i+1}</option>`
+        cab+=`<th><select class="choosen_col" style="min-width:60px"><option Value="NO">Choose</option><option value="qty">Quantity</option><option value="code">Code</option><option value="price">Price</option><option value="pricet">Total Price</option><option value="product">Product</option></select></th>` 
       }
       cab+=`</tr></thead>`;
-      $(".choosen").html("")
-      $(".choosen").append(op)
       html+=cab;
       console.log(t)
       t.forEach((c,i) => {
@@ -295,35 +327,107 @@
           i==limit?columna+=`</tr></thead>`:html+=`</tr>`;
           html+=columna;
       });
-      html+=`</table><hr>`;
+      html+=`</table>`;
       });
-      $("#bingos").html(html);
+      $("#table_read").html(html);
     }
 
     function createForm(){
       const cabecera=$("#headers_check").prop('checked');
       $("#div_form").html("");
       html="";cabecera?limit=0:limit=1000
+      n=0;pos={}
+      $(".choosen_col").each(function(e){
+        pos[$(this).val()]=n;
+        n++;
+      })
+
       tableData.forEach(t => {
-      html+=`<div class="row">`;
+      html+=`<div class="row p-2">`;
+      p=0;
       t.forEach((c,i) => {
           console.log("AAA",c)
           if(i!=limit && c){
             html+=`
-            <div class="col-12">Product<br><input type="text" value="${c[$("#product").val()]}" style="max-width:100%;min-width:100%"></div>
-            <div class="col-3">Qty<br><input type="text" value="${c[($("#qty").val())]}"  style="max-width:100%"></div>
-            <div class="col-3">Code<br><input type="text" value="${c[$("#code").val()]}"  style="max-width:100%"></div>
-            <div class="col-3">Price<br><input type="text" value="${c[$("#price").val()]}"  style="max-width:100%"></div>
-            <div class="col-3">Total<br><input type="text" value="${c[$("#pricet").val()]}"  style="max-width:100%"></div>
-            <hr>
+            <div class="col-1" style="padding:2px"><input  id="valid_${p}" type="checkbox" checked  style="max-width:100%;margin-top:30px;color:#FFF;background:rgb(255,255,255,.1);border:1px solid #FFF;border-radius:3px"></div>
+            <div class="col-11"style="padding:2px">Product<br><input id="product_${p}"  type="text" style="color:#FFF;background:none;border:0px;color:#FFCC00;width:100%" value="${c[pos.product] || ""}" style="max-width:100%;min-width:100%"></div>
+            <div class="col-3" style="padding:2px">Qty<br><input  id="qty_${p}" type="text" value="${c[pos.qty] || ""}"  style="max-width:100%;color:#FFF;background:rgb(255,255,255,.1);border:1px solid #FFF;border-radius:3px"></div>
+            <div class="col-3" style="padding:2px">Code<br><input id="code_${p}" type="text" value="${c[pos.code] || ""}"  style="max-width:100%;color:#FFF;background:rgb(255,255,255,.1);border:1px solid #FFF;border-radius:3px"></div>
+            <div class="col-3" style="padding:2px">Price<br><input  id="price_${p}" type="text" value="${c[pos.price] || ""}"  style="max-width:100%;color:#FFF;background:rgb(255,255,255,.1);border:1px solid #FFF;border-radius:3px"></div>
+            <div class="col-3" style="padding:2px">Total<br><input  id="pricet_${p}" type="text" value="${c[pos.pricet] || ""}"  style="max-width:100%;color:#FFF;background:rgb(255,255,255,.1);border:1px solid #FFF;border-radius:3px"></div>
             `
+          p++;
           }
       });
       html+=`</div>`;
       });
       $("#div_form").html(html);
-
+      $("#div_form").append(`<input type='hidden' id="total_reg" value='${p}'>`);
+      capa(101)
+      $("#form_date").val(hora())
     }
+
+    function hora(){
+      // Obtener la fecha actual
+      let now = new Date();
+      // Formatear la fecha en 'YYYY-MM-DDTHH:MM'
+      let year = now.getFullYear();
+      let month = String(now.getMonth() + 1).padStart(2, '0');
+      let day = String(now.getDate()).padStart(2, '0');
+      let hours = String(now.getHours()).padStart(2, '0');
+      let minutes = String(now.getMinutes()).padStart(2, '0');
+
+      return `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+
+    $("#enviar_form").on('click',()=>{
+       data=[]
+       for (let i = 0; i < $('#total_reg').val(); i++) {
+        if($("#valid_"+i).prop('checked') && $("#product_"+1).val().trim()!=""){
+        data.push({product:$('#product_'+i).val(),qty:$('#qty_'+i).val(),code:$('#code_'+i).val(),price:$('#price_'+i).val(),pricet:$('#pricet_'+i).val()})
+        }
+      }
+      console.log({reg:data,date:$("#form_date").val(),suplier:$("#form_suplier").val()})
+      $.ajax({
+        url: '/uploadproduct', // URL del servidor donde se enviarán los datos
+        type: 'POST',
+        data: JSON.stringify({reg:data,date:$("#form_date").val(),suplier:$("#form_suplier").val()}),
+        contentType: 'application/json',
+        success: function(response) {
+          alert(1)
+        }})
+    })
+
+    const getRegistros=()=>{
+       data=[]
+       for (let i = 0; i < $('#total_reg').val(); i++) {
+        if($("#valid_"+i).prop('checked') && $("#product_"+1).val().trim()!=""){
+        data.push({product:$('#product_'+i).val(),qty:$('#qty_'+i).val(),code:$('#code_'+i).val(),price:$('#price_'+i).val(),pricet:$('#pricet_'+i).val()})
+        }
+      }
+      console.log({reg:data,date:$("#form_date").val(),suplier:$("#form_suplier").val()})
+      $.ajax({
+        url: '/getproduct', // URL del servidor donde se enviarán los datos
+        type: 'POST',
+        data: JSON.stringify({}),
+        contentType: 'application/json',
+        success: function(r) {
+          html=``
+          r.data.forEach(e => {
+            html+=`<div class="col-12">
+              <div class="col-12" style="background:#FFF;border-radius:10px;padding:10px;margin-top:5px;border:1px solid #333">
+                <h5>${e.product} <b>(x${e.qty})</b></h5>
+                <p style="margin:0px"><b>Code: </b>${e.code} <b>Supplier: </b>${e.suplier}</p>
+                <p style="margin:0px"><b>Pricing: </b>${e.price} <b>Total pricing: </b>${e.pricet}</p>
+                
+              </div>
+              </div>`
+          });
+          $("#products").html(html)
+        }})
+    }
+    getRegistros()
+
 
 
     //Setting filtros
@@ -341,203 +445,7 @@
     if(!user_id){user_id=generarCodigo(30);localStorage.setItem('user_id',user_id);}
     $(".user_id").html(user_id)
 
-    initsearch()
-    
-    $(document).ready(function() {
-    $('#archivo').change(function() {
-      $("#archivo_name").val("Bingo "+(bingos_qty+1));
-      $("#archivo_name").focus()
-      //$('#uploadForm').submit(); // Enviar el formulario cuando se selecciona un archivo
-    });
-
-    $('#uploadForm').submit(function(e) {
-      $("#uploadForm").hide()
-      e.preventDefault(); // Evitar la recarga de la página al enviar el formulario
-      var formData = new FormData($(this)[0]); // Obtener los datos del formulario
-      var archivo_name = $('#archivo_name').val();
-      formData.append('archivo_name', archivo_name);
-      formData.append('user_id', user_id);
-      formData.append('img_token', 'beIqZb26X1xlEOVqLOto8.jpg');
-      $("#bingos").html("");
-      capa(0)
-      $.ajax({
-        url: '/upload', // URL del servidor donde se enviarán los datos
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-          console.log(response)
-          const rta=response.contenido;
-          html=""
-          rta.forEach(t => {
-            html+=`<table class="ui celled table">`;
-            t.forEach((c,i) => {
-              i==0?html+=`<thead><tr>`:html+=`<tr>`;
-              c.forEach(r => {
-                i==0?html+=`<th>${r}</th>`:html+=`<td>${r}</td>`;
-              });
-              i==0?html+=`<tr></thead>`:html+=`<tr>`;
-            });
-            html+=`</table><hr>`;
-          });
-          $("#bingos").html(html);
-          capa(1)
-          //initsearch()
-          
-        },
-        error: function(error) {
-          // Manejar errores si ocurren
-        }
-      });
-    });
-  });
-
-  
-
-  function initsearch(){
-    localStorage.setItem('btn_filter',btn_filter);
-    $("#bingos").html("");
-    $(".songs").html("")
-    bingos_qty=0;
-    capa(0)
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    var raw = JSON.stringify({
-      user_id
-    });
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };  
-    fetch("/user/img", requestOptions)
-    .then(response => response.json())
-    .then(result =>{
-      songs_data=[]
-        newA=result.map(a=>{
-          arrayA=a.bingo.map(b=>b.chequeado)
-          l1=arrayA.slice(0,5).filter(c=>{if(c){return true;}}).length;
-          l2=arrayA.slice(5,10).filter(c=>{if(c){return true;}}).length;
-          l3=arrayA.slice(10,15).filter(c=>{if(c){return true;}}).length;
-          l4=arrayA.slice(15,20).filter(c=>{if(c){return true;}}).length;
-          l5=arrayA.slice(20,25).filter(c=>{if(c){return true;}}).length;
-          const linCount=[l1,l2,l3,l4,l5].filter(c=>c==5).length;
-          const maxCount=Math.max(...[l1,l2,l3,l4,l5].filter(c=>c<5))
-          console.log("horizontal",[l1,l2,l3,l4,l5])
-          return {linCount,maxCount}  
-        })
-        console.log(1)
-        newB=result.map(a=>{
-          l1=a.bingo.filter(a=>a.columna==0).map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
-          l2=a.bingo.filter(a=>a.columna==1).map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
-          l3=a.bingo.filter(a=>a.columna==2).map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
-          l4=a.bingo.filter(a=>a.columna==3).map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
-          l5=a.bingo.filter(a=>a.columna==4).map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
-          const linCount=[l1,l2,l3,l4,l5].filter(c=>c==5).length;
-          const maxCount=Math.max(...[l1,l2,l3,l4,l5].filter(c=>c<5))
-          console.log("vertical",[l1,l2,l3,l4,l5])
-          return {linCount,maxCount}  
-        })
-        newC=result.map(a=>{
-          return a.bingo.map(b=>b.chequeado).filter(c=>{if(c){return true;}}).length;
-        })
-        result=result.map((a,i)=>{a.lineas=newA[i].linCount;a.lineasC=newA[i].maxCount;a.verticales=newB[i].linCount;a.verticalesC=newB[i].maxCount; a.chequeados=newC[i];return a;})
-        console.log(result.map(a=> {return {l:a.lineas,lc:a.lineasC,v:a.verticales,vc:a.verticalesC};}))
-        if(btn_filter==1){result.sort((a,b)=>{
-          if(b.lineas-a.lineas<0){return -1}
-          if(b.lineasC-a.lineasC<0){return -1}
-        });}
-        if(btn_filter==2){result.sort((a,b)=>{
-          if(b.verticales-a.verticales<0){return -1}
-          if(b.verticalesC-a.verticalesC<0){return -1}
-        });}
-        if(btn_filter==3){result.sort((a,b)=>b.chequeados-a.chequeados);}
-        result.forEach((e,t) => {
-          bingos_qty++;
-          console.log(e.url)
-          html=``
-          html+=`<div class="col-12" style="padding:20px">
-            <p style="margin:0px;font-size:1.2em">${e.name || "-"}
-            </p>
-            <p style='color:#9e9e9e;font-size:.8em;margin:0px'>
-              <a style="display:${btn_filter==1?"block":"none"}"><i class="zmdi zmdi-long-arrow-right"></i> ${e.lineas.linCount} lines | To new line: ${5-e.lineas.maxCount}  songs</a>
-              <a style="display:${btn_filter==2?"block":"none"}"><i class="zmdi zmdi-long-arrow-up"></i> ${e.verticales.linCount} lines | To new line: ${5-e.verticales.maxCount}  songs</a>
-              <a style="display:${btn_filter==3?"block":"none"}"><i class="zmdi zmdi-collection-music"></i> ${e.chequeados} | To end: ${25-e.chequeados} songs</a></p>         
-              <button class="btn btn-xs btn_img" data_img="${e.url}" style="padding:1px 10px;margin-top:-41px;font-size:1.1em;border-radius:100px;background:rgb(100,100,100);color:rgba(200,200,200);float:left">
-                <i class="zmdi zmdi-eye"></i>
-              </button>
-              <button class="btn btn-xs btn_delete" data_btn="${e.id}" style="padding:1px 10px;margin-top:-41px;font-size:1.1em;border-radius:100px;background:rgb(100,100,100);color:rgba(200,200,200);float:right">
-                <i class="zmdi zmdi-delete"></i>
-              </button>
-            <div class="row" style="color:#FFF;border-radius:10px;margin-top:20px">`
-          li=0;liact=0;lineas=0;
-          e.bingo.forEach(s => {
-              songs_data.push(s)
-              html+=`<div class="col" style="background:${s.chequeado?"rgb(120, 255, 188,.1)":"rgb(242, 212, 73,.5)"};width:20%;min-width:20%;margin:0px;font-size:.7em;border:.1px solid #000;text-align:center;padding:0px;display: flex;align-items: center;justify-content: center;">${s.song}</div>`; 
-              li++;
-              if(s.chequeado){liact++;}
-              if(li==5){if(liact==5){lineas++;};li=0;liact=0;}
-          });
-          html+=`</div></div>`;
-          $("#bingos").append(html)
-          $("#lineas_"+t).html(lineas)
-        });
-        
-        songs_data=songs_data.map(a=>{a.realsong=a.song;a.song=a.song.replaceAll("-","").replaceAll(".","").replaceAll(" ","").trim();return a;})
-        songs_data.sort((a, b) => a.song.localeCompare(b.song));
-        songs_data.forEach(e => {
-          iguales=songs_data.filter(a=>compararCadenas(a.song,e.song)>.9)
-          songs_data=songs_data.map(a=>{if(iguales.findIndex(b=>b._id==a._id)>-1){a.song=e.song};return a});
-        });
-        const songs = Object.values(
-          songs_data.reduce((acc, { song, ...rest }) => {
-            acc[song] = acc[song] || { song, cantidad: 0, ...rest,ids:[],title:[]};
-            acc[song].cantidad++;
-            acc[song].ids.push(rest._id)
-            acc[song].title.push(rest.realsong)
-            return acc;
-          }, {})
-        );
-        songs.sort((a, b) => a.song.localeCompare(b.song)).forEach((s,i) => {
-          html_btn=`<button class="btn" id="btn_${i}" style="float:right;background:rgb(0,0,0,.3);color:rgb(255,255,255,.7);border:0px"><i class="zmdi zmdi-${s.chequeado?"delete":"check"}"></i></button>`
-          $(".songs").append(`<div class="col-12 songs_list" style="padding:10px;background:${s.chequeado?"rgb(120, 255, 188,.1)":"rgb(242, 212, 73,.5)"};margin-bottom:10px;box-shadow: -2px 5px 30px -10px rgba(0,0,0,.16);border-radius:10px;text-align:left">${html_btn}${s.realsong} (${s.cantidad})</div>`)  
-          $("#btn_"+i).on("click",()=>{
-            act(s.ids,!s.chequeado)
-          })
-        
-        });
-        capa(1);   
-        $(".btn_delete").on("click",function (e) {  
-          capa(0)
-          var settings = {
-          "url": "/delete",
-          "method": "POST",
-          "timeout": 0,
-          "headers": {
-            "Content-Type": "application/json"
-          },
-          "data": JSON.stringify({
-            "id": $(this).attr('data_btn'),
-            "status": false
-          }),
-          };
-
-          $.ajax(settings).done(function (response) {
-            initsearch()
-          });     
-        })     
-        $(".btn_img").on("click",function (e) {  
-          $("#img_show").hide();
-          $("#img_show_loading").show()
-          $("#img_show").attr("src",$(this).attr('data_img'));
-          capa(3)
-        })      
-    })
-    .catch(error => console.log('error', error));
-    }
-
+    capa(1)
     function compararCadenas(str1, str2) {
       const set1 = new Set(str1.split(''));
       coin=0;total=0;

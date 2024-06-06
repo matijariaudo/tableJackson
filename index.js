@@ -11,6 +11,7 @@ import userModel from './DBuser.js';
 import bingoModel from './DBbingo.js';
 
 import dotenv from 'dotenv'
+import Registro from './DBbingo copy.js';
 dotenv.config()
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -38,7 +39,6 @@ app.post('/user/new',async(req,res)=>{
     if(!name || !password){
       return res.status(200).send({"req":"Error"})
     }
-    
     const checkU=await userModel.findOne({name})
     if(checkU){
       const newBingo=new bingoModel({"name":"Nuevo Bingo",userId:checkU._id});
@@ -133,10 +133,154 @@ app.post('/upload', upload.single('archivo'),async(req, res) => {
   }
 });
 
+app.post('/uploadproduct', async(req, res) => {
+  const {reg,suplier,date}=req.body;
+  console.log(date)
+  if(!reg){res.status(400).send({error:"No data"})}
+  reg.forEach(e => {
+    const {product,qty,code,price,pricet}=e;
+    const registro=new Registro({product,qty,code,price,pricet,suplier,date});
+    registro.save();
+    console.log(registro)
+  });
+  res.status(200).send({data:req.body})
+})
+app.post('/getproduct', async(req, res) => {
+  const {suplier,date}=req.body;
+  const reg=await Registro.find({status:"active"})
+  res.status(200).send({data:reg})
+})
+
 app.post('/upload2', async(req, res) => {
-   const contenido= await revisar("4TegCxEClH8tj5zLNZASy.jpg",false);
-    if(!contenido){return res.status(400).send('Ha ocurrido un error al leer la imagen');}
-    res.status(200).send({contenido});
+    //const contenido= await revisar("4TegCxEClH8tj5zLNZASy.jpg",false);
+    //if(!contenido){return res.status(400).send('Ha ocurrido un error al leer la imagen');}
+    res.status(200).send({
+      "contenido": [
+          [
+              [
+                  "1",
+                  "1",
+                  "EA",
+                  "E1456",
+                  "Chocolate - Milk 44% cocoa mass 2.5kg Callets",
+                  "Gelato Messina",
+                  "53.35",
+                  "53.35",
+                  "0.00",
+                  "55.00"
+              ],
+              [
+                  "1",
+                  "1",
+                  "EA",
+                  "E0647",
+                  "Curry Powder Mild 500g",
+                  "Krio Krush",
+                  "9.90",
+                  "9.90",
+                  "0.00",
+                  "9.90"
+              ],
+              [
+                  "2",
+                  "2",
+                  "CTN",
+                  "E0453",
+                  "Flour - Rice (Gluten Free) 500g x 12 (Red)",
+                  "Erawan",
+                  "21.75",
+                  "43.50",
+                  "0.00",
+                  "43.50"
+              ],
+              [
+                  "1",
+                  "1",
+                  "EA",
+                  "E0434",
+                  "Glucose (sugar) 5kg",
+                  "Edlyn",
+                  "42.45",
+                  "42.45",
+                  "0.00",
+                  "42.45"
+              ],
+              [
+                  "1",
+                  "1",
+                  "EA",
+                  "E1329",
+                  "Pistachio Kernels 1kg",
+                  "Trumps",
+                  "48.15",
+                  "48.15",
+                  "0.00",
+                  "48.15"
+              ],
+              [
+                  "1",
+                  "1",
+                  "EA",
+                  "E0911",
+                  "Salt - - Sea Rock 10kg",
+                  "Olsson's",
+                  "8.85",
+                  "8.85",
+                  "0.00",
+                  "8.85"
+              ],
+              [
+                  "1",
+                  "1",
+                  "CTN",
+                  "E0270",
+                  "Chocolate - Cacao Nibs Organic 300g x 10",
+                  "Chefs Choice",
+                  "60.65",
+                  "60.65",
+                  "0.00",
+                  "60.65"
+              ],
+              [
+                  "1",
+                  "1",
+                  "EA",
+                  "E1821",
+                  "Pepper-Aleppo - (Turkish Chilli) 250g",
+                  "Herbies Spices",
+                  "12.50",
+                  "12.50",
+                  "0.00",
+                  "12.50"
+              ],
+              [
+                  "1",
+                  "1",
+                  "EA",
+                  "E0656",
+                  "Garlic Powder 1kg",
+                  "Krio Krush",
+                  "14.50",
+                  "14.50",
+                  "0.00",
+                  "14.50"
+              ],
+              null,
+              [
+                  "2",
+                  "2",
+                  "CTN",
+                  "F0174",
+                  "Bread - Martins Potato Sandwich 4\" X 48 (4x 12)",
+                  "Martins",
+                  "58.75",
+                  "117.50",
+                  "0.00",
+                  "117.50"
+              ]
+          ]
+      ]
+  });
   
 });
 
