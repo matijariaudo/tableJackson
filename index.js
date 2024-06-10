@@ -139,16 +139,33 @@ app.post('/uploadproduct', async(req, res) => {
   if(!reg){res.status(400).send({error:"No data"})}
   reg.forEach(e => {
     const {product,qty,code,price,pricet}=e;
-    const registro=new Registro({product,qty,code,price,pricet,suplier,date});
+    const registro=new Registro({product,qty,code,price,pricet,suplier,dateArrive:new Date(date)});
     registro.save();
     console.log(registro)
   });
   res.status(200).send({data:req.body})
 })
+
 app.post('/getproduct', async(req, res) => {
   const {suplier,date}=req.body;
-  const reg=await Registro.find({status:"active"})
+  const reg=await Registro.find({status:"active"}).sort({ dateArrive:-1})
   res.status(200).send({data:reg})
+})
+
+app.post('/deleteproduct', async(req, res) => {
+  const {regId}=req.body;
+  const reg=await Registro.findById(regId)
+  reg.status="deleted";
+  reg.save()
+  res.status(200).send({data:reg})
+})
+
+
+app.post('/getsuppliers', async(req, res) => {
+  const reg = await Registro.distinct('suplier', { status: 'active' });
+  console.log('Distinct values:', reg); // Verifica lo que se obtiene aquí
+
+  res.status(200).send({ data: reg });
 })
 
 app.post('/upload2', async(req, res) => {

@@ -7,8 +7,9 @@ const productSchema=new Schema({
     price:String,
     pricet:String,
     suplier:String,
+    dateArrive: { type: Date },
     date: {
-        type:String,
+        type:Date,
         default:new Date()
     },
     status:{

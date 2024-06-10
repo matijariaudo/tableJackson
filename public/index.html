@@ -19,31 +19,7 @@
     color:#525252;
     font-family: 'Fredoka', sans-serif;
   }
-  /* Estilos para el botón de carga personalizado */
-  .custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-    background-color: #14958e;
-    color:#FFF;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-
-  .custom-file-upload:hover {
-    background-color: #e0e0e0;
-  }
-
-  .fixed-bottom{
-    background-color: #301e9f;
-    color:#FFF;
-    text-align: center;
-  }
-  .fixed-bottom .nav_div{
-    border:1px solid #87a4df;
-    border-width: 0px 1px 0px 0px;
-  }
+  
 
   table td,th{
     padding: 3px;
@@ -82,7 +58,7 @@
             display: block;
             margin: 0 auto;
         }
-  .table-div
+
   .choosen{
     border-radius: 10px;
     padding:5px 30px;
@@ -92,32 +68,66 @@
     
   }
   .capa{
-    padding: 0px;background: #f2f2f2;height: 100vh;margin: 0px;padding: 10px;
+    margin: 0px;
+    padding: 0px;
     overflow-y: auto;
+  }
+  .capa_0,.capa_00{
+    height: 100vh;
+    margin:0px
+  }
+  ::-webkit-scrollbar {
+      height: 0px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      background: #154732;
+      border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-track:horizontal {
+      background-color: #f2f2f2;
+      border: 0px solid #f2f2f2;
   }
   </style>
 </head>
 <body>
-  <div class="navbar fixed-top row capa_no capa_10_no capa_100_no capa_101_no capa_0_no" style="padding: 10px 0px;background-color: #000000;color:#FFF;margin: 0px;text-align: center;">
-    <div class="col-12 p-2">
-      <img src="img/logo.webp" alt="" style="width: 30vw;">
+  <div class="navbar fixed-top row capa_no capa_10_no capa_100_no capa_101_no capa_0_no p-0" style="padding: 10px 0px;background-color: #000000;color:#FFF;margin: 0px;text-align: center;">
+    <div class="row col-md-6 offset-md-3 col-12" style="padding-bottom: 5px;">
+    <div class="col-12 col-lg-2 p-2">
+      <img src="img/logo.webp" alt="" style="width: 90px;margin-top: 5px;">
     </div>
-    <div class="col-10 p-2">
-      <input type="text" class="form-control" onclick="capa(2);$('#txt_buscar').focus().val('')"placeholder="Product, code or supplier.." style="width: 100%;background-color:rgba(255,255,255,.12);border:0px;border-radius: 100px;color:#FFCC00;">
+    <div class="col-10 col-lg-8 p-2">
+      <input type="text" id="txt_buscar" class="form-control" placeholder="Product, code or supplier.." style="width: 100%;background-color:rgba(255,255,255,.12);border:0px;border-radius: 100px;color:#FFCC00;">
     </div>
-    <div class="col-2 p-2">
+    <div class="col-2 col-lg-1 p-2">
       <button class="btn" style="background-color: #7c7c7c;border-radius: 100px;padding: 5px 12px;" onclick="$('#inputImage').click()">+</button>
+    </div>
     </div>
   </div>
   <div class="container-fluid"  style="padding: 0px;;margin: 0px;padding: 0px;">
     <div class="capa capa_0 row" style="background: #000;text-align: center;">
-    <div class="offset-4 col-4" style="margin-top: 30vh; color:#FFF"><img src="https://blog.roberthallam.org/wp-content/uploads/2022/09/loading-win98-transparent.gif" style="width: 100%;filter: invert(1);"><br>Loading..</div>
+    <div class="offset-4 col-4" style="margin-top: 30vh; color:#FFF"><img src="https://blog.roberthallam.org/wp-content/uploads/2022/09/loading-win98-transparent.gif" style="width: 100%;max-width: 80px;filter: invert(1);"><br>Loading..</div>
     </div>
-    <div class="capa capa_1 row" style="padding-top: 120px;">
-      <div class="col-12" id="products">
-        <button class="btn" data="1" style="background-color: #301e9f;color:#FFF;margin-bottom: 10px;" onclick="uploadCroppedImage2()"><i class="zmdi zmdi-plus" ></i> Simular</button>
-            
-        saddas
+    <div class="capa capa_00 row" style="background: #ffffff;text-align: center;">
+      <div class="offset-4 col-4" style="margin-top: 30vh; color:#000000"><img src="https://blog.roberthallam.org/wp-content/uploads/2022/09/loading-win98-transparent.gif" style="width: 100%;max-width: 80px;"><br>Loading..</div>
+      </div>
+    <div class="capa capa_1 row  m-0" style="padding: 120px 10px 30px 10px;">
+      <div class="col-12 p-0" style="overflow-x: auto;text-align: center;">
+        <p style="text-align: left;margin: 0px;">Date:</p>
+        <center><div id="date_filter" style="padding: 5px 0px;width: 480px;">
+          <button class="btn btn_date" data-date="day" style="padding:5px 10px;border-radius:100px;background:#EAEAEA;color:#000;margin:3px;width:100px;border:1px solid #333">Today</button>
+          <button class="btn btn_date" data-date="week" style="padding:5px 10px;border-radius:100px;background:#EAEAEA;color:#000;margin:3px;width:100px;border:1px solid #333">This week</button>
+          <button class="btn btn_date" data-date="7days" style="padding:5px 10px;border-radius:100px;background:#EAEAEA;color:#000;margin:3px;width:100px;border:1px solid #333">Last week</button>
+          <button class="btn btn_date" data-date="month" style="padding:5px 10px;border-radius:100px;background:#EAEAEA;color:#000;margin:3px;width:140px;border:1px solid #333">This month</button>
+        </div></center>
+      </div>
+      <div class="col-12 p-0" style="overflow-x: auto;text-align: center;">
+        <p style="text-align: left;margin: 0px;">Supplier:</p>
+        <center><div id="categories" style="padding: 5px 0px;"></div></center>
+      </div>
+      <div class="row col-md-6 offset-md-3 col-12" id="products">
+        
       </div>
     </div>
     <div class="capa capa_100 row" style="padding-top: 30px;background-color: #000;color:#FFF">
@@ -146,7 +156,10 @@
       <div class="col-12">
       <h3 style="margin: 20px 0px; text-align: center;">Upload Products</h3>
       <div class="col-12" style="border:1px solid #FFF;border-width: 2px 0px 2px 0px;padding-top: 30px;">
-        Supplier: <input type="text"  id="form_suplier" style="background: none;border:1px solid #FFF;border-radius: 4px;color:#FFF"><br><br>
+        Supplier: <select id="old_suppliers" onchange="$('#form_suplier').val($(this).val());$(this).val()==''?$('#form_suplier_div').show():$('#form_suplier_div').hide()" style="background: none;border:1px solid #FFF;border-radius: 4px;color:#FFF;margin-bottom:10px"></select> <br>
+        <div id="form_suplier_div">
+        New Supplier: <input type="text"  id="form_suplier" style="background: none;border:1px solid #FFF;border-radius: 4px;color:#FFF;margin-bottom:10px">
+        </div>
         Date: <input type="datetime-local" id="form_date" style="background: none;border:1px solid #FFF;border-radius: 4px;margin-bottom: 30px;color: #FFF;">
       </div>
       <div class="col-12" id="div_form"></div>
@@ -167,15 +180,6 @@
         <button onclick="capa(1)" class="btn btn-danger ">Delete</button> <button id="crop" class="btn btn-success">Continue</button>
       </div>
     </div>
-    <div class="capa capa_2 row" style="margin: 0px;padding: 0px;text-align: center;">
-        
-        <div class="row" style="padding: 10px;background-color: #000;margin: 0px;">
-          <input type="text" onfocus="$(this).val('');$(this).keyup()" autocomplete="off" class="form-control" id="txt_buscar" placeholder="Song name.." style="width: 100%;background-color:rgba(255,255,255,.12);border:0px;border-radius: 100px;color:#FFCC00;">
-        </div>
-        <div class="co-12 songs" style="padding:30px 20px 100px 20px">
-
-        </div>
-    </div>
     <div class="capa capa_3 row" style="padding: 40px 30px;background: #000;min-height: 100%;">
       <div class="col-12">
       <center><img src="img/loading.gif" style="width: 90px;" id="img_show_loading"></center>
@@ -188,12 +192,40 @@
     </div>
   </div>
 
+  <div class="modal" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header" style="border:0px">
+              <h5 class="modal-title">DELETE</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body delete delete_1">
+                <center><div class="lds-ring"><div></div><div></div><div></div><div></div></div></center>
+            </div>
+            <div class="modal-body delete delete_2" style="text-align: center;">
+                <p>Are you sure of delete this register??</p>
+                <b id="n1">4</b>+<b id="n2">3</b>=
+                <input type="number" id="delete_rta" style="width: 30px;border-width: 0px 0px 2px 0px;">
+                <p style="font-style: italic;font-size: .8em;">*Complete the sum to confirm</p>
+                <input type="hidden" id="delete_id">
+                <input type="hidden" id="delete_sum">
+                <p id="delete_problem" style="color: red;"></p>
+            </div>
+            <div class="modal-footer create create_2 style="border:0px">
+              <button type="button" class="btn" onclick="sendDelete()">Send</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
   <nav class="navbar fixed-bottom " style="padding: 0px;box-shadow: -2px 5px 30px -5px rgba(66, 66, 66, 0.75);display: none;">
     <div class="col-6 nav_div nav_div_1" onclick="capa(1)" style="padding: 20px 10px;"><i class="zmdi zmdi-format-list-bulleted"></i> PRODUCTS</div>
     <div class="col-6 nav_div nav_div_2" onclick="capa(2)" style="padding: 20px 10px"><i class="zmdi zmdi-collection-music"></i> SUPPLIERS</div>
   </nav>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Bootstrap JS (optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script>
 
     function capa(i){
@@ -364,6 +396,8 @@
       $("#div_form").html(html);
       $("#div_form").append(`<input type='hidden' id="total_reg" value='${p}'>`);
       capa(101)
+      $("#form_suplier_div").hide();
+      $("#form_suplier").val("NO");
       $("#form_date").val(hora())
     }
 
@@ -394,18 +428,15 @@
         data: JSON.stringify({reg:data,date:$("#form_date").val(),suplier:$("#form_suplier").val()}),
         contentType: 'application/json',
         success: function(response) {
-          alert(1)
+          capa("00")
+          getRegistros();
         }})
     })
 
+    
+
+    suppliers=[];suppliersSelected="all"
     const getRegistros=()=>{
-       data=[]
-       for (let i = 0; i < $('#total_reg').val(); i++) {
-        if($("#valid_"+i).prop('checked') && $("#product_"+1).val().trim()!=""){
-        data.push({product:$('#product_'+i).val(),qty:$('#qty_'+i).val(),code:$('#code_'+i).val(),price:$('#price_'+i).val(),pricet:$('#pricet_'+i).val()})
-        }
-      }
-      console.log({reg:data,date:$("#form_date").val(),suplier:$("#form_suplier").val()})
       $.ajax({
         url: '/getproduct', // URL del servidor donde se enviarán los datos
         type: 'POST',
@@ -413,22 +444,93 @@
         contentType: 'application/json',
         success: function(r) {
           html=``
+          dateAct=""
+          suppliers=[];
           r.data.forEach(e => {
-            html+=`<div class="col-12">
-              <div class="col-12" style="background:#FFF;border-radius:10px;padding:10px;margin-top:5px;border:1px solid #333">
-                <h5>${e.product} <b>(x${e.qty})</b></h5>
-                <p style="margin:0px"><b>Code: </b>${e.code} <b>Supplier: </b>${e.suplier}</p>
-                <p style="margin:0px"><b>Pricing: </b>${e.price} <b>Total pricing: </b>${e.pricet}</p>
-                
+            if(!areDatesSameDay(dateAct,e.dateArrive)){
+              dateAct=e.dateArrive
+              html+=`<div class="col-12" style="padding:4px 8px;text-align:center">
+                <hr style="margin:0px 0px 5px 0px">
+                <h5>${formatDate(e.dateArrive).split(" ")[0]+" "+formatDate(e.dateArrive).split(" ")[1]}</h5>
+                </div>`;
+            }
+            html+=`<div class="col-12 product_list" data-cat="${e?.suplier?.toLowerCase()}" style="padding:4px 1px">
+              <div class="col-12" style="background:#FFF;border-radius:10px;padding:10px;border:1px solid #333">
+                <button class="btn btn_delete" style="float:right;border:1px solid #000;padding:4px 10px;margin-left:3px" data="${e.id}"><i class="zmdi zmdi-delete"></i></button>
+                <a style="margin:0px;float:right;background:black;color:#FFF;padding:3px;border-radius:3px;font-size:.8em"><b>$${formatPrice(e.price)}</b></a>
+                <p style="margin:0px;font-size:.75em"><b>${e.suplier || "-"}</b></p>
+                <h5 style="font-size:1.05em;margin:0px">${e.product} <b>(x${e.qty})</b></h5>
+                <p style="margin:0px;font-size:.75em"><b>${e.code} || ${formatDate(e.date,false)}</b></p>
               </div>
-              </div>`
+              </div>`;
+              if(suppliers.indexOf(e?.suplier?.toLowerCase())<0 && e.suplier){suppliers.push(e.suplier.toLowerCase())}
           });
           $("#products").html(html)
+          html=`<button class="btn btn_cat" data-cat="all"  style="padding:5px 10px;border-radius:100px;background:#333;color:#FFF;margin:3px;width:100px;border:1px solid #333">ALL</button>`
+          suppliers.forEach(e => {
+            html+=`<button class="btn btn_cat" data-cat="${e.toLowerCase()}" style="padding:5px 10px;border-radius:100px;background:#EAEAEA;color:#000;margin:3px;width:100px;border:1px solid #333">${e.substr(0,8)}${e.length<8?"":".."}</button>`
+          });
+          $("#categories").css("width",`${(suppliers.length+1)*106}px`)
+          $("#categories").html(html);
+          $(".btn_cat").on("click",function () {
+            $(".btn_cat").css("background","#EAEAEA").css("color","#000")
+            $(this).css("background","#333").css("color","#FFF")
+            suppliersSelected=$(this).attr("data-cat");
+            $("#txt_buscar").val("")
+            checkcoincidir()
+          })
+          $(".btn_delete").on("click",function () {  
+            n1=Math.floor(Math.random() * 6);
+            n2=Math.floor(Math.random() * 6);
+            $("#deleteModal").modal('show')
+            $("#n1").html(n1);$("#n2").html(n2);
+            $("#delete_id").val($(this).attr('data'))
+            $("#delete_sum").val(n1+n2)
+            $("#delete_problem").html("");
+            $("#delete_rta").val("");
+            $("#delete_rta").focus()
+          })
+          capa(1)
+          getSuppliers()
         }})
     }
     getRegistros()
 
+    const sendDelete=()=>{
+      n1=$("#delete_sum").val();n2=$("#delete_rta").val()
+      if(n1!=n2){$("#delete_problem").html("Incorrect answer");return false;}
+      $.ajax({
+      url: '/deleteproduct', // URL del servidor donde se enviarán los datos
+      type: 'POST',
+      data: JSON.stringify({regId:$("#delete_id").val()}),
+      contentType: 'application/json',
+      success: function(r) {
+        getRegistros();
+        $("#deleteModal").modal('hide')
+        
+      }})
+    }
 
+    const getSuppliers=()=>{
+      $.ajax({
+        url: '/getsuppliers', // URL del servidor donde se enviarán los datos
+        type: 'POST',
+        data: JSON.stringify({}),
+        contentType: 'application/json',
+        success: function(r) {
+          html=`<option value="NO" style="background:#000;color:#FFF">Choose Supplier</option>
+                <option value="" style="background:#000;color:#FFF">New Supplier</option>`
+          r?.data?.forEach(e => {
+            if(e?.trim()!=""){html+=`<option value="${e}" style="background:#000;color:#FFF">${e}</option>`}
+          });
+          $("#old_suppliers").html(html)
+        }})
+    }
+    $(".btn_date").on("click",function () {
+      $(".btn_date").css("background","#EAEAEA").css("color","#000")
+      $(this).css("background","#333").css("color","#FFF")
+    })
+    $(document).find(".btn_date").eq(0).click()
 
     //Setting filtros
     btn_filter=localStorage.getItem('btn_filter');
@@ -445,7 +547,7 @@
     if(!user_id){user_id=generarCodigo(30);localStorage.setItem('user_id',user_id);}
     $(".user_id").html(user_id)
 
-    capa(1)
+    capa("00")
     function compararCadenas(str1, str2) {
       const set1 = new Set(str1.split(''));
       coin=0;total=0;
@@ -481,18 +583,35 @@
     }
 
     let dejodeescribir;
-    $("#txt_buscar").on("keyup",function () {
-        txt=$(this).val();
+    function checkcoincidir() {
+        txt=$("#txt_buscar").val();
         clearInterval(dejodeescribir)
         dejodeescribir=setInterval(()=>{
-          $(".songs_list").show()
-          $(".songs_list").each(function(s){
+          $(".product_list").show()
+          $(".product_list").each(function(s){
+            select=true;
             if($(this).html().toLowerCase().indexOf(txt.toLowerCase())<0){
               $(this).hide()
+              select=false;
+            }
+            if(suppliersSelected!=$(this).attr("data-cat") && suppliersSelected!="all"){
+              $(this).hide();
+              select=false;
+            }
+            if(select){console.log(suppliersSelected===$(this).attr("data-cat") && suppliersSelected!="all",suppliersSelected,$(this).attr('data-cat'))
             }
           });
           clearInterval(dejodeescribir)
         },300)
+     }
+     $("#txt_buscar").on("keyup",function(){checkcoincidir()})
+
+
+     $(window).on("load",()=>{
+      $(".capa_1").css("padding-top",($(".fixed-top").height()+20)+"px");
+      if($(window).width()<592){
+        $(".row").css("margin","0px")
+      }
      })
 
 
@@ -507,6 +626,46 @@
 
       return codigo;
     }
+    function formatDate(dateInput,dayShow=true) {
+      // Asegurarse de que dateInput es un objeto Date
+      const date = new Date(dateInput);
+
+      // Verificar si la conversión fue exitosa
+      if (isNaN(date.getTime())) {
+        throw new Error("Invalid date input");
+      }
+
+      const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const monthsOfYear = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+      
+      const dayName = daysOfWeek[date.getUTCDay()]; // Obtiene el día de la semana en texto
+      const day = date.getUTCDate().toString().padStart(2, '0'); // Obtiene el día del mes y lo formatea con dos dígitos
+      const month = monthsOfYear[date.getUTCMonth()]; // Obtiene el mes en número
+      const year = date.getUTCFullYear().toString().slice(-2); // Obtiene los últimos dos dígitos del año
+      const hours = date.getUTCHours().toString().padStart(2, '0'); // Obtiene la hora y lo formatea con dos dígitos
+      const minutes = date.getUTCMinutes().toString().padStart(2, '0'); // Obtiene los minutos y lo formatea con dos dígitos
+      if(dayShow){
+      return `${dayName} ${day}/${month}/${year} ${hours}:${minutes}`;
+      }else{
+        return `${day}/${month}/${year} ${hours}:${minutes}`;
+      }
+    }
+    function formatPrice(input) {
+      // Usar una expresión regular para reemplazar cualquier carácter que no sea un número, '.', o ',' por una cadena vacía
+      const cleanedString = input.replace(/[^0-9.,]/g, '');
+      return cleanedString;
+    }
+    function areDatesSameDay(date1, date2) {
+      const d1 = new Date(date1);
+      const d2 = new Date(date2);
+
+      return (
+        d1.getUTCFullYear() === d2.getUTCFullYear() &&
+        d1.getUTCMonth() === d2.getUTCMonth() &&
+        d1.getUTCDate() === d2.getUTCDate()
+      );
+    }
+    
     </script>
 </body>
 </html>
